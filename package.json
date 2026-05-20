@@ -1,0 +1,16 @@
+{
+  "name": "bbva-cursor-pw",
+  "version": "1.0.0",
+  "description": "Playwright automation for BBVA México credit cards navigation",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.0",
+    "typescript": "^5.8.2"
+  }
+}
