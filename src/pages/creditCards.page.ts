@@ -41,6 +41,15 @@ export class CreditCardsPage {
     return [...names].sort((a, b) => a.localeCompare(b, 'es'));
   }
 
+  getCardLink(namePattern: RegExp): Locator {
+    return this.cardCatalog.filter({ hasText: namePattern }).first();
+  }
+
+  async clickCardLink(namePattern: RegExp): Promise<void> {
+    const link = this.getCardLink(namePattern);
+    await link.dispatchEvent('click');
+  }
+
   async assertExpectedCardsPresent(
     expectedCards: CreditCardProduct[] = CREDIT_CARDS
   ): Promise<void> {
