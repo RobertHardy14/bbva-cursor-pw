@@ -15,11 +15,11 @@ test.describe('BBVA México - Detalle de tarjetas de crédito', () => {
 
       await creditCardsPage.assertOnCatalogPage();
 
-      await creditCardsPage.clickCardLink(card.namePattern);
-      await page.waitForLoadState('domcontentloaded');
+    await creditCardsPage.clickCardLink(card.namePattern);
+    await page.waitForLoadState('domcontentloaded');
 
-      await creditCardDetailPage.assertOnDetailPage(card);
-      await creditCardDetailPage.assertFeaturesVisible(card.features);
+    await creditCardDetailPage.assertOnDetailPage(card);
+    await creditCardDetailPage.assertFeaturesVisible(card.features);
 
       await test.info().attach(`detalle-${card.displayName.replace(/\s+/g, '-').toLowerCase()}`, {
         body: JSON.stringify(
