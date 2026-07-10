@@ -120,7 +120,7 @@ export const CREDIT_CARD_DETAILS: CreditCardDetail[] = [
     displayName: 'Mi Primera Tarjeta BBVA',
     namePattern: /primera/i,
     urlPattern: /\/personas\/productos\/tarjetas-de-credito\/mi-primera-tarjeta-de-credito(\.html)?$/,
-    headingPattern: /Primera BBVA/,
+    headingPattern: /Mi Primera Tarjeta BBVA/,
     features: [
       /sin cuota mensual/i,
       /sin comisiones ocultas/i,
