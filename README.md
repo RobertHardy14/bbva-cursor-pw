@@ -4,9 +4,7 @@
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 
-An End-to-End (E2E) automation testing framework designed for testing and navigating the BBVA México credit cards web application. 
-
-This project was built with the assistance of **Antigravity**, an advanced agentic coding assistant by Google DeepMind.
+An End-to-End (E2E) automation testing framework for the [BBVA México](https://www.bbva.mx) credit cards web application.
 
 ## 🏗️ Architecture
 
@@ -17,15 +15,15 @@ The repository leverages the **Page Object Model (POM)** design pattern to ensur
 ```text
 .
 ├── src/
-│   ├── components/    # Reusable UI elements (e.g., headers, footers, modals)
-│   └── pages/         # Page Object classes (e.g., LoginPage, CreditCardsPage)
+│   ├── components/    # Reusable UI elements (e.g., main nav)
+│   └── pages/         # Page Object classes (home, credit cards, credit card detail)
 ├── tests/
-│   ├── data/          # Test data (JSON, CSV, etc.)
-│   ├── fixtures/      # Custom Playwright fixtures
-│   └── specs/         # The actual E2E test files (*.spec.ts)
-├── scripts/           # Utility scripts
+│   ├── data/           # Test data (credit-cards, credit-card-details, routes)
+│   ├── fixtures/        # base.fixture.ts — wires up page objects
+│   └── specs/          # The actual E2E test files (*.spec.ts)
+├── scripts/            # Utility scripts
 ├── playwright.config.ts # Playwright environment and browser configuration
-└── package.json       # Project dependencies and npm scripts
+└── package.json         # Project dependencies and npm scripts
 ```
 
 ## 🚀 Getting Started
@@ -63,6 +61,16 @@ The framework includes several npm scripts to run your tests in different modes:
 | `npm run test:headed` | Runs tests with the browser UI visible (useful for local debugging). |
 | `npm run test:ui` | Opens Playwright's interactive UI mode. |
 | `npm run test:report` | Opens the HTML report from the last test execution. |
+
+Set the `BASE_URL` environment variable to target a different environment (defaults to `https://www.bbva.mx`).
+
+## ✅ Test Coverage
+
+- Home page critical elements
+- Credit cards section navigation
+- Credit card detail pages — data-driven across all cards defined in `tests/data/credit-card-details.data.ts`, with JSON evidence attached per card
+- Browser navigation history behavior
+- 404 / negative routing
 
 ## 🛠️ Built With
 
