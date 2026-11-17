@@ -21,7 +21,6 @@ The repository leverages the **Page Object Model (POM)** design pattern to ensur
 │   ├── data/           # Test data (credit-cards, credit-card-details, routes)
 │   ├── fixtures/        # base.fixture.ts — wires up page objects
 │   └── specs/          # The actual E2E test files (*.spec.ts)
-├── scripts/            # Utility scripts
 ├── playwright.config.ts # Playwright environment and browser configuration
 └── package.json         # Project dependencies and npm scripts
 ```
@@ -68,7 +67,7 @@ Set the `BASE_URL` environment variable to target a different environment (defau
 
 - Home page critical elements
 - Credit cards section navigation
-- Credit card detail pages — data-driven across all cards defined in `tests/data/credit-card-details.data.ts`, with JSON evidence attached per card
+- Credit card detail pages — URL and heading checks are data-driven across all 11 entries in `tests/data/credit-card-details.data.ts`, with JSON metadata attached per case. Feature text is checked by a helper, but failures are not currently asserted by the spec.
 - Browser navigation history behavior
 - 404 / negative routing
 

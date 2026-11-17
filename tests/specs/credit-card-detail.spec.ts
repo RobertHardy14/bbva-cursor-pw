@@ -15,8 +15,7 @@ test.describe('BBVA México - Detalle de tarjetas de crédito', () => {
 
       await creditCardsPage.assertOnCatalogPage();
 
-    await creditCardsPage.clickCardLink(card.namePattern);
-    await page.waitForLoadState('domcontentloaded');
+    await creditCardsPage.clickCardLink(card.namePattern, card.urlPattern);
 
     await creditCardDetailPage.assertOnDetailPage(card);
     await creditCardDetailPage.assertFeaturesVisible(card.features);

@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { CREDIT_CARDS_CATALOG_URL_PATTERN } from '../../tests/data/routes.data';
 
 export class MainNavComponent {
   private readonly menuButton: Locator;
@@ -6,24 +7,39 @@ export class MainNavComponent {
   private readonly allCreditCardsLink: Locator;
 
   constructor(private readonly page: Page) {
-    this.menuButton = page.getByRole('button', { name: 'Menú' });
-    this.creditCardsSection = page.getByText('Tarjetas de crédito', { exact: true }).first();
+    const navigation = page.getByRole('navigation', { name: /BBVA México/ });
+    this.menuButton = navigation
+      .getByRole('button', { name: 'Menú principal', exact: true })
+      .filter({ visible: true });
+    this.creditCardsSection = page
+      .getByRole('button', { name: 'Tarjetas de crédito', exact: true })
+      .or(page.getByRole('link', { name: 'Tarjetas de crédito', exact: true }))
+      .filter({ visible: true });
     this.allCreditCardsLink = page
-      .getByText('Todas las tarjetas de crédito', { exact: true })
-      .first();
+      .getByRole('link', { name: 'Todas las tarjetas de crédito', exact: true })
+      .filter({ visible: true });
   }
 
   async openAllCreditCards(): Promise<void> {
-    await expect(this.menuButton).toBeVisible({ timeout: 15_000 });
     await this.menuButton.click();
+    await expect(this.menuButton).toHaveAttribute('aria-expanded', 'true');
 
-    await expect(this.creditCardsSection).toBeVisible({ timeout: 10_000 });
     await this.creditCardsSection.click();
+    await expect.poll(async () =>
+      CREDIT_CARDS_CATALOG_URL_PATTERN.test(this.page.url()) ||
+      await this.allCreditCardsLink.isVisible(),
+      { timeout: 15_000 }
+    ).toBe(true);
 
-    await expect(this.allCreditCardsLink).toBeVisible({ timeout: 10_000 });
-    await this.allCreditCardsLink.click();
+    if (!CREDIT_CARDS_CATALOG_URL_PATTERN.test(this.page.url())) {
+      await expect(this.creditCardsSection).toHaveAttribute('aria-expanded', 'true');
+      await this.allCreditCardsLink.click();
+    }
 
-    await this.page.waitForURL(/tarjetas-de-credito/, { timeout: 15_000 });
-    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForURL(CREDIT_CARDS_CATALOG_URL_PATTERN, {
+      timeout: 15_000,
+      waitUntil: 'domcontentloaded',
+    });
+    await expect(this.page).toHaveURL(CREDIT_CARDS_CATALOG_URL_PATTERN);
   }
 }

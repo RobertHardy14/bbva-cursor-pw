@@ -14,8 +14,7 @@ test.describe('BBVA México - Navegación', () => {
     await creditCardsPage.assertOnCatalogPage();
 
     const card = CREDIT_CARD_DETAILS[0];
-    await creditCardsPage.clickCardLink(card.namePattern);
-    await page.waitForLoadState('domcontentloaded');
+    await creditCardsPage.clickCardLink(card.namePattern, card.urlPattern);
     await creditCardDetailPage.assertOnDetailPage(card);
 
     await page.goBack();

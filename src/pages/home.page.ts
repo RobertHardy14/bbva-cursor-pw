@@ -14,16 +14,14 @@ export class HomePage {
   }
 
   async dismissOverlays(): Promise<void> {
-    const dismissButtons = [
-      this.page.getByRole('button', { name: /aceptar|acepto|entendido|continuar/i }),
-      this.page.getByRole('button', { name: /cerrar|close/i }),
-    ];
+    const closeCookieButton = this.page.getByRole('button', {
+      name: 'Cierra cookie',
+      exact: true,
+    });
 
-    for (const button of dismissButtons) {
-      const first = button.first();
-      if (await first.isVisible().catch(() => false)) {
-        await first.click({ timeout: 3_000 }).catch(() => undefined);
-      }
+    if (await closeCookieButton.isVisible()) {
+      await closeCookieButton.click();
+      await expect(closeCookieButton).toBeHidden();
     }
   }
 
